@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph.xml"
+    app:startDestination="@id/uploadSamplesFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.aman.voicerecognition.ui.fragments.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/uploadSamplesFragment"
+        android:name="com.aman.voicerecognition.ui.fragments.RecordVoiceFragment"
+        android:label="fragment_upload_samples"
+        tools:layout="@layout/fragment_record_voice" />
+
+
+</navigation>

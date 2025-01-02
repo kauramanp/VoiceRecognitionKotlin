@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Voice Recognition Kotlin</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="submit">Submit</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="play">Play</string>
+    <string name="stop_play">Stop Playing</string>
+    <string name="upload">Upload</string>
+    <string name="train_model">Train Model</string>
+    <string name="recognise_speaker">Recognise Speaker</string>
+</resources>

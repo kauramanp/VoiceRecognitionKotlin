@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_20"
+    tools:context=".ui.fragments.RecordVoiceFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text1"
+        style="@style/TextAppearance.MaterialComponents.Headline4"
+        android:text="@string/hello_blank_fragment" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/startBtn"
+        android:text="@string/start"
+        android:layout_marginTop="@dimen/dp_20"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/stopBtn"
+        android:text="@string/stop"
+        android:layout_marginVertical="@dimen/dp_20"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/playBtn"
+        android:text="@string/play" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/stopPlayBtn"
+        android:layout_marginVertical="@dimen/dp_20"
+        android:text="@string/stop_play" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnUpload"
+        android:enabled="false"
+        android:text="@string/upload" />
+
+
+</LinearLayout>
