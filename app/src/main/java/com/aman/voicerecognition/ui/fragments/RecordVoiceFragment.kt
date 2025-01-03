@@ -67,8 +67,8 @@ class RecordVoiceFragment : Fragment() {
     ) { permissions ->
         // Handle the permissions result here
         if (permissions[android.Manifest.permission.RECORD_AUDIO] == true &&
-            permissions[android.Manifest.permission.READ_EXTERNAL_STORAGE] == true &&
-            permissions[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] == true
+            permissions[readStoragePermission] == true &&
+            permissions[writeStoragePermission] == true
         ) {
             // Permissions granted
             Toast.makeText(requireActivity(), "All permissions granted", Toast.LENGTH_SHORT).show()
@@ -276,24 +276,11 @@ class RecordVoiceFragment : Fragment() {
         }
     }
 
-
-
-/*    fun prepareFilePart(filePath: String): MultipartBody.Part {
-        val file = File(filePath)
-        val requestBody: RequestBody = RequestBody.create(
-            "audio/*".toMediaTypeOrNull(), // Adjust MIME type if needed
-            file
-        )
-        return MultipartBody.Part.createFormData("audio", file.name, requestBody)
-    }*/
-
-    private fun uploadAudio(){
+    private fun uploadAudio() {
         outputFile = wavObj.getFinalFile()
-        Log.e(TAG, "uploadAudio: $outputFile", )
+        Log.e(TAG, "uploadAudio: $outputFile",)
         mainActivity.binding.llProgress.visibility = View.GONE
     }
-
-
 
     companion object {
         /**
@@ -315,3 +302,14 @@ class RecordVoiceFragment : Fragment() {
             }
     }
 }
+
+//    fun prepareFilePart(filePath: String): MultipartBody.Part {
+//        val file = File(filePath)
+//        val requestBody: RequestBody = RequestBody.create(
+//            "audio/*".toMediaTypeOrNull(), // Adjust MIME type if needed
+//            file
+//        )
+//        return MultipartBody.Part.createFormData("audio", file.name, requestBody)
+//    }
+
+
