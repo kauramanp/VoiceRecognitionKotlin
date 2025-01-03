@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "VoiceRecognitionKotlin"
+rootProject.name = "VoiceRecording"
 include(":app")
  
