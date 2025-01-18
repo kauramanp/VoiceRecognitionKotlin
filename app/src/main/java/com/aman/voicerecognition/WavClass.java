@@ -145,7 +145,7 @@ public class WavClass {
             e.printStackTrace();
         }
     }
-//    private void createWavFile(String tempPath,String wavPath){
+
     private void createWavFile(File tempPath,File wavPath){
         try {
             FileInputStream fileInputStream = new FileInputStream(tempPath);
@@ -166,6 +166,7 @@ public class WavClass {
             e.printStackTrace();
         }
     }
+    
     @SuppressLint("MissingPermission")
     public void startRecording(){
         try{
