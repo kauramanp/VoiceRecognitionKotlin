@@ -46,39 +46,35 @@ class RecordVoiceFragment : Fragment() {
 
     private val TAG = "RecordVoiceFragment"
 
-    val recordAudioPermission = android.Manifest.permission.RECORD_AUDIO
-
-    val readStoragePermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        android.Manifest.permission.READ_MEDIA_AUDIO
+    val permissions =if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        arrayOf(
+            android.Manifest.permission.RECORD_AUDIO,
+            android.Manifest.permission.READ_MEDIA_AUDIO,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
     } else {
-        android.Manifest.permission.READ_EXTERNAL_STORAGE
-
-    }
-
-    val writeStoragePermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        android.Manifest.permission.READ_MEDIA_AUDIO
-    } else {
-        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        arrayOf(
+            android.Manifest.permission.RECORD_AUDIO,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
     }
 
     // Register the permission request callback using Activity Result API
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
-    ) { permissions ->
-        // Handle the permissions result here
-        if (permissions[android.Manifest.permission.RECORD_AUDIO] == true &&
-            permissions[readStoragePermission] == true &&
-            permissions[writeStoragePermission] == true
-        ) {
-            // Permissions granted
+    ) { grantedPermissions ->
+        if (permissions.all { grantedPermissions[it] == true }) {
+            // All permissions granted
             Toast.makeText(requireActivity(), "All permissions granted", Toast.LENGTH_SHORT).show()
             start()
         } else {
-            // Permissions not granted
+            // Some or all permissions denied
             Toast.makeText(requireActivity(), "Permissions denied", Toast.LENGTH_SHORT).show()
             openAppSettings()
         }
     }
+
     private val wavObj: WavClass by lazy {
         WavClass(requireContext())
     }
@@ -129,56 +125,28 @@ class RecordVoiceFragment : Fragment() {
     }
 
     private fun hasPermissions(): Boolean {
-        val recordAudioPermission = ContextCompat.checkSelfPermission(
-            requireContext(), android.Manifest.permission.RECORD_AUDIO
-        )
-        val readStoragePermission = ContextCompat.checkSelfPermission(
-            requireContext(), readStoragePermission
-        )
-        val writeStoragePermission = ContextCompat.checkSelfPermission(
-            requireContext(), writeStoragePermission
-        )
-        return recordAudioPermission == PackageManager.PERMISSION_GRANTED &&
-                readStoragePermission == PackageManager.PERMISSION_GRANTED &&
-                writeStoragePermission == PackageManager.PERMISSION_GRANTED
+        return permissions.all {
+            ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
+        }
     }
 
     // Request permissions with rationale handling
     private fun requestPermissionsWithRationale() {
-        Log.e(
-            TAG,
-            "recordAudioPermission ${recordAudioPermission} readStoragePermission $readStoragePermission writeStoragePermission $writeStoragePermission"
-        )
-        val shouldShowRationale = ActivityCompat.shouldShowRequestPermissionRationale(
-            requireActivity(), android.Manifest.permission.RECORD_AUDIO
-        ) || ActivityCompat.shouldShowRequestPermissionRationale(
-            requireActivity(), readStoragePermission
-        ) || ActivityCompat.shouldShowRequestPermissionRationale(
-            requireActivity(), writeStoragePermission
-        )
+        val shouldShowRationale = permissions.any {
+            ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), it)
+        }
 
         if (shouldShowRationale) {
-            // Show rationale to the user
-            Toast.makeText(
-                requireActivity(),
-                "Permissions are required for the app to function properly",
-                Toast.LENGTH_LONG
-            ).show()
-            // Request permissions after rationale
-            openAppSettings()
+            Toast.makeText(requireActivity(), "Permissions are required for the app to function properly", Toast.LENGTH_LONG).show()
+            openAppSettings() // Guide user to enable permissions manually
         } else {
-            // Request permissions directly
-            requestPermissions()
+            requestPermissions() // Directly request permissions
         }
     }
 
     private fun requestPermissions() {
         requestPermissionLauncher.launch(
-            arrayOf(
-                android.Manifest.permission.RECORD_AUDIO,
-                writeStoragePermission,
-                recordAudioPermission
-            )
+            permissions
         )
     }
 
