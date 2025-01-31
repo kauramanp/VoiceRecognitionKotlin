@@ -45,5 +45,19 @@
         android:enabled="false"
         android:text="@string/upload" />
 
+    <com.aman.voicerecognition.VisualizerView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/visualizer"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvRecordingTime"
+        android:gravity="center"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        tools:text="@string/hello_blank_fragment" />
 
 </LinearLayout>

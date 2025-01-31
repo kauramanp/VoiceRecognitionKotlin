@@ -5,6 +5,8 @@ import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
@@ -37,20 +39,22 @@ class RecordVoiceFragment : Fragment() {
     private var param2: String? = null
     private var myPlayer: MediaPlayer? = null
     private var outputFile: String = ""
+    val REPEAT_INTERVAL = 40L
+
     val binding: FragmentRecordVoiceBinding by lazy {
         FragmentRecordVoiceBinding.inflate(layoutInflater)
     }
     val mainActivity: MainActivity by lazy {
         requireActivity() as MainActivity
     }
-
+    private val handler: Handler = Handler(Looper.getMainLooper()) // Handler for updating the visualizer
+    var isRecording = false
     private val TAG = "RecordVoiceFragment"
 
     val permissions =if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         arrayOf(
             android.Manifest.permission.RECORD_AUDIO,
             android.Manifest.permission.READ_MEDIA_AUDIO,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
     } else {
         arrayOf(
@@ -159,7 +163,17 @@ class RecordVoiceFragment : Fragment() {
 
     private fun start() {
         try {
-            wavObj.startRecording()
+            wavObj.startRecording(binding.tvRecordingTime)
+            binding.text1.text = "Recording Point: Recording"
+            binding.startBtn.isEnabled = false
+            binding.btnUpload.isEnabled = false
+            binding.stopBtn.isEnabled = true
+            handler.post(updateVisualizer)
+            isRecording = true
+            Toast.makeText(
+                requireContext(), "Start recording...",
+                Toast.LENGTH_SHORT
+            ).show()
         } catch (e: IllegalStateException) {
             // start:aman is called before prepare()
             // prepare: aman is called after start() or before setOutputFormat()
@@ -168,20 +182,11 @@ class RecordVoiceFragment : Fragment() {
             // prepare() fails
             e.printStackTrace()
         }
-
-        binding.text1.text = "Recording Point: Recording"
-        binding.startBtn.isEnabled = false
-        binding.btnUpload.isEnabled = false
-        binding.stopBtn.isEnabled = true
-
-        Toast.makeText(
-            requireContext(), "Start recording...",
-            Toast.LENGTH_SHORT
-        ).show()
     }
 
     private fun stop(view: View?) {
         try {
+            isRecording = false
             wavObj.stopRecording()
 
             binding.stopBtn.isEnabled = false
@@ -194,7 +199,6 @@ class RecordVoiceFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         } catch (e: IllegalStateException) {
-            //  aman is called before start()
             e.printStackTrace()
         } catch (e: RuntimeException) {
             // no valid audio/video data has been received
@@ -246,8 +250,25 @@ class RecordVoiceFragment : Fragment() {
 
     private fun uploadAudio() {
         outputFile = wavObj.getFinalFile()
-        Log.e(TAG, "uploadAudio: $outputFile",)
+        Log.e(TAG, "uploadAudio: $outputFile")
         mainActivity.binding.llProgress.visibility = View.GONE
+    }
+
+
+    // updates the visualizer every 50 milliseconds
+    private var updateVisualizer: Runnable = object : Runnable {
+        override fun run() {
+            if (isRecording) // if we are already recording
+            {
+                // get the current amplitude
+                val x: Int = wavObj.mediaRecorder.maxAmplitude
+                binding.visualizer.addAmplitude(x) // update the VisualizeView
+                binding.visualizer.invalidate() // refresh the VisualizerView
+
+                // update in 40 milliseconds
+                handler.postDelayed(this, REPEAT_INTERVAL)
+            }
+        }
     }
 
     companion object {
