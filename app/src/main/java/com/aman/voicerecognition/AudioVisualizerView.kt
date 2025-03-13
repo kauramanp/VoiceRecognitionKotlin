@@ -4,7 +4,9 @@ package com.aman.voicerecognition
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.LinearGradient
 import android.graphics.Paint
+import android.graphics.Shader
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
@@ -87,7 +89,7 @@ class AudioVisualizerView(context: Context?, attrs: AttributeSet?) : View(contex
              }
          }
      }*/
-    override fun onDraw(canvas: Canvas) {
+  /*  override fun onDraw(canvas: Canvas) {
         Log.e(TAG, "in on Draw ")
         val middle = height / 2 // get the middle of the View
         var curX = 0f // start curX at zero
@@ -98,18 +100,18 @@ class AudioVisualizerView(context: Context?, attrs: AttributeSet?) : View(contex
         for (power in amplitudes!!) {
             // draw a line representing this item in the amplitudes ArrayList
 
-            /*  canvas.drawLine(
+            *//*  canvas.drawLine(
                   curX, middle + power / 2, curX, middle
                           - power / 2, linePaint
-              )*/
+              )*//*
             //this is for the straight line
-            /*canvas.drawLine(
+            *//*canvas.drawLine(
                 0f,
                 (getHeight() / 2).toFloat(),
                 getWidth().toFloat(),
                 (getHeight() / 2).toFloat(),
                 linePaint
-            )*/
+            )*//*
             var halfHeight = getHeight()/2
             var halfPower =  (100 - power.toInt())// .div(2)
             val division =  (halfPower.toFloat().div(halfHeight.toFloat())).toFloat()
@@ -133,6 +135,61 @@ class AudioVisualizerView(context: Context?, attrs: AttributeSet?) : View(contex
             // Draw a rectangle to simulate a thick line
             canvas.drawRect(barLeft, barTop, barRight, barBottom, linePaint)
             curX += stroke + gap// increase X by line width
+        }
+    }*/
+    private var maxAmplitude = 0f // Variable to store the current maximum amplitude
+
+    override fun onDraw(canvas: Canvas) {
+        val middle = height / 2 // get the middle of the View
+        var curX = 0f // start curX at zero
+        val barWidth = getWidth() / density
+        Log.e(TAG, "barWidth " + barWidth)
+        var gap = 15
+        val maxHeight = getHeight() // Set the maximum height for the visualizer bars
+
+        // Set a minimum threshold for amplitude (below this, we won't draw any bars)
+        val minThreshold = 15 // Amplitude value below which bars will not be drawn (adjustable)
+
+        // For each item in the amplitudes ArrayList
+        for (power in amplitudes!!) {
+            // Discard amplitudes below the threshold
+            if (power < minThreshold) {
+                continue // Skip drawing for low amplitudes below the threshold
+            }
+
+            // Dynamically track the maximum amplitude
+            if (power > maxAmplitude) {
+                maxAmplitude = power // Update max amplitude if the current value exceeds the previous max
+            }
+
+            // Calculate the scaled height based on the current maximum amplitude
+            val scaledHeight = (power.toFloat() / maxAmplitude.toFloat()) * maxHeight
+
+            // Calculate the top and bottom of the bar based on the scaled height
+            val top: Int = (middle - scaledHeight / 2).toInt().coerceAtLeast(0)
+            val bottom: Int = (middle + scaledHeight / 2).toInt().coerceAtMost(getHeight())
+
+            // Create a LinearGradient for the bar colors (from red to blue in this example)
+            val gradient = LinearGradient(
+                0f, top.toFloat(), 0f, bottom.toFloat(),
+                Color.BLUE, Color.BLUE, Shader.TileMode.CLAMP
+            )
+
+            // Set up a Paint object with the gradient shader
+            val gradientPaint = Paint().apply {
+                shader = gradient
+                isAntiAlias = true // Smooth out the edges
+            }
+
+            // Calculate bar's X position and the rectangle width
+            val barLeft = curX - barWidth / 2  // center the bar on the X position
+            val barRight = curX + barWidth / 2  // same as above but to the right
+
+            // Draw the bar for the amplitude
+            canvas.drawRect(barLeft, top.toFloat(), barRight, bottom.toFloat(), gradientPaint)
+
+            // Increment the X position by the width of the bar and the gap between bars
+            curX += barWidth + gap
         }
     }
 
