@@ -17,4 +17,13 @@ This module provides a complete voice recording experience using a Fragment and 
 <li>☁️ Upload audio as .wav file
 
 <li>📦 Lightweight and modular, ready for reuse
+
+# 🧱 Architecture
+<li>Written in Kotlin
+
+<li>Built around a Fragment-based UI
+
+<li>Uses MediaRecorder or AudioRecord API (depending on your implementation)
+
+<li>View drawing powered by custom View subclasses
  
