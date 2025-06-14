@@ -26,4 +26,17 @@ This module provides a complete voice recording experience using a Fragment and 
 <li>Uses MediaRecorder or AudioRecord API (depending on your implementation)
 
 <li>View drawing powered by custom View subclasses
+
+# 🖼️ Visualizers
+1. AudioVisualizerView
+A colorful, real-time audio visualizer using bars with dynamic height and gradients.
+
+Key Features:
+<li>Scales amplitude bars based on max recorded amplitude
+
+<li>Ignores low/noise threshold to reduce clutter
+
+<li>Draws bars with LinearGradient color
+
+<li>Adjustable density and gap between bars
  
