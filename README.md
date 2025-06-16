@@ -46,4 +46,14 @@ Key Features:
 <li>Fast rendering with simple vertical lines
 
 <li>Great for low-performance environments
+
+# 📂 File Upload (WAV)
+After recording, the module encodes the audio into .wav format and uploads it via your backend API or storage logic.
+
+<b>Sample Flow:</b>
+<li>Start recording
+<li>Visualize waveform in real time
+<li>Stop recording
+<li>Save as .wav
+<li>Upload to server or Firebase
  
