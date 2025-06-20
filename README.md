@@ -23,7 +23,7 @@ This module provides a complete voice recording experience using a Fragment and 
 1. AudioVisualizerView<br>
 A colorful, real-time audio visualizer using bars with dynamic height and gradients.
 
-Key Features:
+<u>Key Features:</u>
 <li>Scales amplitude bars based on max recorded amplitude
 <li>Ignores low/noise threshold to reduce clutter
 <li>Draws bars with LinearGradient color
@@ -42,7 +42,7 @@ Key Features:
 # 📂 File Upload (WAV)
 After recording, the module encodes the audio into .wav format and uploads it via your backend API or storage logic.
 
-<b>Sample Flow:</b>
+<u>Sample Flow:</u>
 <li>Start recording
 <li>Visualize waveform in real time
 <li>Stop recording
