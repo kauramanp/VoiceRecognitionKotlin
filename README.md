@@ -13,9 +13,7 @@ This module provides a complete voice recording experience using a Fragment and 
 
 # 🧱 Architecture
 <li>Written in Kotlin
-
 <li>Built around a Fragment-based UI
-
 <li>Uses MediaRecorder or AudioRecord API (depending on your implementation)
 <li>View drawing powered by custom View subclasses
 
@@ -23,7 +21,7 @@ This module provides a complete voice recording experience using a Fragment and 
 1. AudioVisualizerView<br>
 A colorful, real-time audio visualizer using bars with dynamic height and gradients.
 
-<u>Key Features:</u>
+<ins>Key Features:</ins>
 <li>Scales amplitude bars based on max recorded amplitude
 <li>Ignores low/noise threshold to reduce clutter
 <li>Draws bars with LinearGradient color
@@ -32,7 +30,7 @@ A colorful, real-time audio visualizer using bars with dynamic height and gradie
 <br>2. VisualizerView<br>
 A minimal visualizer with green stroke lines. Designed for lightweight performance and classic audio line representation.
 
-Key Features:
+<ins>Key Features:</ins>
 <li>Calculates pixel size from device DPI
 
 <li>Fast rendering with simple vertical lines
@@ -42,7 +40,7 @@ Key Features:
 # 📂 File Upload (WAV)
 After recording, the module encodes the audio into .wav format and uploads it via your backend API or storage logic.
 
-<u>Sample Flow:</u>
+<ins>Sample Flow:</ins>
 <li>Start recording
 <li>Visualize waveform in real time
 <li>Stop recording
