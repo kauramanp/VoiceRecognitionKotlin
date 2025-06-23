@@ -58,5 +58,6 @@ You can customize the following:
 | `minThreshold`    | `AudioVisualizerView` | Minimum amplitude to start drawing a bar   |
 | `MAX_AMPLITUDE`   | Both views            | Max amplitude constant for scaling visuals |
 
+# 📦 Integration
 
  
