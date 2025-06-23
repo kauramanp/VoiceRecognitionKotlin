@@ -59,5 +59,15 @@ You can customize the following:
 | `MAX_AMPLITUDE`   | Both views            | Max amplitude constant for scaling visuals |
 
 # 📦 Integration
+XML
+```
+<com.yourpackage.AudioVisualizerView
+    android:id="@+id/audioVisualizer"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"/>
+```
+```
+audioVisualizer.addAmplitude(currentAmplitude)
+```
 
  
