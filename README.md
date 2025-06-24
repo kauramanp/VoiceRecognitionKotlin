@@ -66,6 +66,7 @@ XML
     android:layout_width="match_parent"
     android:layout_height="200dp"/>
 ```
+Kotlin
 ```
 audioVisualizer.addAmplitude(currentAmplitude)
 ```
