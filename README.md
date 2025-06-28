@@ -1,7 +1,7 @@
-# 🎙️ Voice Recording & WAV Upload Module (Android)
+# 🎙️ Voice Recording & WAV Upload Module (Android) 
 This module provides a complete voice recording experience using a Fragment and custom views in Android. Users can record voice, visualize the waveform in real time, play back the recording, and upload it as a .wav file.
 
-# 🚀 Features
+# 🚀 Features 
 <li>🎧 Record voice with system microphone
 <li>📈 Real-time audio waveform visualizations
 <li>🖼️ Two custom visualizer views:
@@ -11,13 +11,13 @@ This module provides a complete voice recording experience using a Fragment and 
 <li>☁️ Upload audio as .wav file
 <li>📦 Lightweight and modular, ready for reuse
 
-# 🧱 Architecture
+# 🧱 Architecture 
 <li>Written in Kotlin
 <li>Built around a Fragment-based UI
 <li>Uses MediaRecorder or AudioRecord API (depending on your implementation)
 <li>View drawing powered by custom View subclasses
 
-# 🖼️ Visualizers
+# 🖼️ Visualizers 
 1. AudioVisualizerView<br>
 A colorful, real-time audio visualizer using bars with dynamic height and gradients.
 
@@ -27,17 +27,17 @@ A colorful, real-time audio visualizer using bars with dynamic height and gradie
 <li>Draws bars with LinearGradient color
 <li>Adjustable density and gap between bars<br>
 
-<br>2. VisualizerView<br>
+<br>2. VisualizerView<br> 
 A minimal visualizer with green stroke lines. Designed for lightweight performance and classic audio line representation.
 
-<ins>Key Features:</ins>
+<ins>Key Features:</ins> 
 <li>Calculates pixel size from device DPI
 
 <li>Fast rendering with simple vertical lines
 
 <li>Great for low-performance environments
 
-# 📂 File Upload (WAV)
+# 📂 File Upload (WAV) 
 After recording, the module encodes the audio into .wav format and uploads it via your backend API or storage logic.
 
 <ins>Sample Flow:</ins>
@@ -47,7 +47,7 @@ After recording, the module encodes the audio into .wav format and uploads it vi
 <li>Save as .wav
 <li>Upload to server or Firebase
 
-# 🔧 Customization
+# 🔧 Customization 
 You can customize the following:
 | Parameter         | Class                 | Description                                |
 | ----------------- | --------------------- | ------------------------------------------ |
@@ -58,7 +58,7 @@ You can customize the following:
 | `minThreshold`    | `AudioVisualizerView` | Minimum amplitude to start drawing a bar   |
 | `MAX_AMPLITUDE`   | Both views            | Max amplitude constant for scaling visuals |
 
-# 📦 Integration
+# 📦 Integration 
 XML
 ```
 <com.yourpackage.AudioVisualizerView
@@ -66,7 +66,7 @@ XML
     android:layout_width="match_parent"
     android:layout_height="200dp"/>
 ```
-Kotlin
+Kotlin 
 ```
 audioVisualizer.addAmplitude(currentAmplitude)
 ```
