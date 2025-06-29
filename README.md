@@ -1,7 +1,7 @@
 # 🎙️ Voice Recording & WAV Upload Module (Android) 
 This module provides a complete voice recording experience using a Fragment and custom views in Android. Users can record voice, visualize the waveform in real time, play back the recording, and upload it as a .wav file.
 
-# 🚀 Features 
+# 🚀 Features
 <li>🎧 Record voice with system microphone
 <li>📈 Real-time audio waveform visualizations
 <li>🖼️ Two custom visualizer views:
@@ -11,7 +11,7 @@ This module provides a complete voice recording experience using a Fragment and 
 <li>☁️ Upload audio as .wav file
 <li>📦 Lightweight and modular, ready for reuse
 
-# 🧱 Architecture 
+# 🧱 Architecture
 <li>Written in Kotlin
 <li>Built around a Fragment-based UI
 <li>Uses MediaRecorder or AudioRecord API (depending on your implementation)
